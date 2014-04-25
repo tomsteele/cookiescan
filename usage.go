@@ -1,26 +1,12 @@
-cookiescan
-==========
+package main
 
-TCP port scanning through SYN flood protected networks
+const usage = `
 
-##Download##
-Binary packages for Linux and OS X are available [here](http://github.com/tomsteele/cookiescan/releases/latest). If you need to build for another operating system see the go documentation or get in contact with me and I'll see what I can do.
-
-##Install##
-After installing libpcap-dev:
-```
-$ unzip cookiescan*.zip
-$ ./cookiescan
-```
-
-##Usage##
-```
-$ cookiescan -h
 Usage:
   cookiescan [options] <target>
   cookiescan -h | --help
   cookiescan -v | --version
-
+ 
 Required Arguments:
   target:           IP Address or Hostname
 
@@ -34,4 +20,4 @@ Options:
   -t <timeout>      Timeout in Milliseconds to wait for a connection. [default: 400]
   -j                Output JSON.
 
-```
+`
