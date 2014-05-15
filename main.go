@@ -117,6 +117,7 @@ func main() {
 	close(tasks)
 	time.Sleep(time.Duration(2 * time.Second))
 	track <- empty{}
+	close(track)
 	h.Close()
 	log.Println("Scan complete.")
 
