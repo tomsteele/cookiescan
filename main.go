@@ -3,7 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/docopt/docopt.go"
+	"github.com/docopt/docopt-go"
 	"github.com/miekg/pcap"
 	"github.com/tomsteele/cookiescan/result"
 	"log"
@@ -60,7 +60,7 @@ func main() {
 	}
 	if device == "" {
 		devs, err := pcap.FindAllDevs()
-		if err != "" {
+		if err != nil {
 			log.Fatal("Error finding interfaces. Error: ", err)
 		}
 		if len(devs) == 0 {
