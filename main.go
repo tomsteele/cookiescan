@@ -18,7 +18,7 @@ import (
 type empty struct{}
 
 func main() {
-	args, err := docopt.Parse(usage, nil, true, "cookiescan 0.1", false)
+	args, err := docopt.Parse(usage, nil, true, "cookiescan 1.0.0", false)
 	if err != nil {
 		log.Fatal("Error parsing usage. Error: ", err.Error())
 	}
