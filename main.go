@@ -3,9 +3,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/docopt/docopt-go"
-	"github.com/miekg/pcap"
-	"github.com/tomsteele/cookiescan/result"
 	"log"
 	"net"
 	"os"
@@ -13,6 +10,10 @@ import (
 	"strconv"
 	"text/tabwriter"
 	"time"
+
+	"github.com/docopt/docopt-go"
+	"github.com/miekg/pcap"
+	"github.com/tomsteele/cookiescan/result"
 )
 
 type empty struct{}
@@ -91,6 +92,9 @@ func main() {
 					continue
 				}
 				pkt.Decode()
+				if len(pkt.Headers) < 2 {
+					continue
+				}
 				t := pkt.Headers[1].(*pcap.Tcphdr)
 				f := t.FlagsString()
 				res[t.SrcPort] = append(res[t.SrcPort], f)
