@@ -100,6 +100,8 @@ func main() {
 				res[t.SrcPort] = append(res[t.SrcPort], f)
 			}
 		}
+
+		h.Close()
 	}()
 
 	for i := 0; i < concurrency; i++ {
@@ -122,7 +124,6 @@ func main() {
 	time.Sleep(time.Duration(2 * time.Second))
 	track <- empty{}
 	close(track)
-	h.Close()
 	log.Println("Scan complete.")
 
 	services, _ := buildServices()
