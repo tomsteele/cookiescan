@@ -116,7 +116,7 @@ func main() {
 		}()
 	}
 
-	log.Printf("Staring scan of %s.\n", ip)
+	log.Printf("Starting scan of %s.\n", ip)
 	for _, p := range ports {
 		tasks <- p
 	}
