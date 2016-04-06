@@ -16,13 +16,15 @@ $ ./cookiescan
 ##Usage##
 ```
 $ cookiescan -h
+
 Usage:
   cookiescan [options] <target>
   cookiescan -h | --help
   cookiescan -v | --version
 
 Required Arguments:
-  target:           IP Address or Hostname
+  target:           IP Address, Hostname, or CIDR network. May also be a a newline separated
+                    file containing targets.
 
 Options:
   -h --help         Show this message.
@@ -32,6 +34,6 @@ Options:
   -c <int>          Minimum confidence level to flag port as open. [default: 1]
   -i <interface>    Network interface to listen on.
   -t <timeout>      Timeout in Milliseconds to wait for a connection. [default: 400]
-  -j                Output JSON.
+  -j <file>         Output JSON to file.
 
 ```
