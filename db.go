@@ -3,6 +3,7 @@ package cookiescan
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"os"
 	"text/tabwriter"
 )
@@ -75,10 +76,10 @@ func (s *Store) build(confidence int) []Result {
 	return results
 }
 
-func (s *Store) JSON(confidence int) {
+func (s *Store) JSON(confidence int, fname string) {
 	results := s.build(confidence)
 	j, _ := json.MarshalIndent(results, "", "    ")
-	fmt.Println(string(j))
+	ioutil.WriteFile(fname, j, 0664)
 }
 
 func (s *Store) Tabbed(confidence int) {

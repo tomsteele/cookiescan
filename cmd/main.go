@@ -4,12 +4,11 @@ import (
 	"fmt"
 	"log"
 	"net"
-	"strconv"
 	"time"
 
 	"github.com/gosuri/uiprogress"
 	"github.com/miekg/pcap"
-	"github.com/tomsteele/coscan"
+	"github.com/tomsteele/cookiescan"
 )
 
 type empty struct{}
@@ -72,7 +71,7 @@ func main() {
 	for i := 0; i < options.minconcurrency; i++ {
 		go func() {
 			for tsk := range tasks {
-				c, err := net.DialTimeout("tcp", tsk.ip+":"+strconv.Itoa(tsk.port), options.timeout)
+				c, err := net.DialTimeout("tcp", fmt.Sprintf("%s:%d", tsk.ip, tsk.port), options.timeout)
 				if err != nil {
 					continue
 				}
@@ -99,9 +98,8 @@ func main() {
 	close(track)
 	uiprogress.Stop()
 
-	if options.isjson {
-		db.JSON(options.minconfidence)
-	} else {
-		db.Tabbed(options.minconfidence)
+	if options.jsonfile != "" {
+		db.JSON(options.minconfidence, options.jsonfile)
 	}
+	db.Tabbed(options.minconfidence)
 }
