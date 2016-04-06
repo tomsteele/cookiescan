@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"sort"
 	"text/tabwriter"
 )
 
@@ -70,6 +71,7 @@ func (s *Store) build(confidence int) []Result {
 			}
 		}
 		if len(result.Services) > 0 {
+			sort.Sort(result.Services)
 			results = append(results, result)
 		}
 	}
