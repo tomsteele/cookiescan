@@ -21,7 +21,8 @@ Usage:
   cookiescan -v | --version
 
 Required Arguments:
-  target:           IP Address or Hostname
+  target:           IP Address, Hostname, or CIDR network. May also be a a newline separated
+                    file containing targets.
 
 Options:
   -h --help         Show this message.
@@ -31,7 +32,7 @@ Options:
   -c <int>          Minimum confidence level to flag port as open. [default: 1]
   -i <interface>    Network interface to listen on.
   -t <timeout>      Timeout in Milliseconds to wait for a connection. [default: 400]
-	-j <file>         Output JSON to file. [default: cookiescan.json]
+  -j <file>         Output JSON to file.
 
 `
 
@@ -58,15 +59,15 @@ func parse() *O {
 	}
 
 	var lines []string
-	if host, ok := args["<target>"].(string); ok {
-		lines = append(lines, host)
-	}
-	if inputFile, ok := args["-iL"].(string); ok {
-		lines, err = readFileLines(inputFile)
-		if err != nil {
+	hostorfile := args["<target>"].(string)
+	if ok, err := os.Stat(hostorfile); err == nil && ok != nil {
+		if lines, err = readFileLines(hostorfile); err != nil {
 			log.Fatalf("Error parsing input file. Error: %s\n", err.Error())
 		}
+	} else {
+		lines = append(lines, hostorfile)
 	}
+
 	if o.ips, err = linesToIPList(lines); err != nil {
 		log.Fatalf("Error parsing targets. Error: %s\n", err.Error())
 	}
