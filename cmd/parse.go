@@ -54,8 +54,10 @@ func parse() *O {
 	if err != nil {
 		log.Fatalf("Error parsing usage. Error: %s\n", err.Error())
 	}
-	o := &O{
-		jsonfile: args["-j"].(string),
+	o := &O{}
+
+	if jsonfile, ok := args["-j"].(string); ok {
+		o.jsonfile = jsonfile
 	}
 
 	var lines []string
