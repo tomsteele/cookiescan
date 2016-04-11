@@ -27,7 +27,8 @@ Required Arguments:
 Options:
   -h --help         Show this message.
   -v --version      Show version.
-  -p <port ranges>  Ex: -p 22; -p 1-65535, -p 80,443. [default: 1-1024]
+  -p <port ranges>  Ports to scan. Ex: -p 22; -p 1-65535, -p 80,443. [default: 1-1024]
+  -e <port ranges>  Ports to exclude from scan. Ex: -e 22; -p 21,23. [default: 0]
   -g <int>          Amount of goroutines to spread connection attempts across. [default: 1000]
   -c <int>          Minimum confidence level to flag port as open. [default: 1]
   -i <interface>    Network interface to listen on.
@@ -76,6 +77,20 @@ func parse() *O {
 
 	if o.services, err = explode(args["-p"].(string)); err != nil {
 		log.Fatalf("Error parsing port string. Error %s\n", err.Error())
+	}
+	servicesToExclude, err := explode(args["-e"].(string))
+	if err != nil {
+		log.Fatalf("Error parsing exclude port string. Error %s\n", err.Error())
+	}
+	for _, e := range servicesToExclude {
+		for i, s := range o.services {
+			if e == s {
+				if len(o.services) <= 1 {
+					log.Fatal("Error parsing exlude port range. Resulting port list leaves no ports to scan")
+				}
+				o.services = append(o.services[:i], o.services[i+1:]...)
+			}
+		}
 	}
 
 	if o.minconfidence, err = strconv.Atoi(args["-c"].(string)); err != nil {
