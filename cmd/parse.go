@@ -48,7 +48,7 @@ type O struct {
 }
 
 func parse() *O {
-	args, err := docopt.Parse(usage, nil, true, "cookiescan 2.0.0", false)
+	args, err := docopt.Parse(usage, nil, true, "cookiescan 2.1.0", false)
 	if err != nil {
 		log.Fatalf("Error parsing usage. Error: %s\n", err.Error())
 	}
@@ -79,7 +79,7 @@ func parse() *O {
 		log.Fatalf("Error parsing port string. Error %s\n", err.Error())
 	}
 	servicesToExclude, err := explode(args["-e"].(string))
-	if err != nil {
+	if err != nil && args["-e"].(string) != "0" {
 		log.Fatalf("Error parsing exclude port string. Error %s\n", err.Error())
 	}
 	for _, e := range servicesToExclude {
