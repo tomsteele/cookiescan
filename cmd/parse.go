@@ -48,7 +48,7 @@ type O struct {
 }
 
 func parse() *O {
-	args, err := docopt.Parse(usage, nil, true, "cookiescan 2.1.0", false)
+	args, err := docopt.Parse(usage, nil, true, "cookiescan 2.2.0", false)
 	if err != nil {
 		log.Fatalf("Error parsing usage. Error: %s\n", err.Error())
 	}
