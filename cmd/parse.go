@@ -156,13 +156,10 @@ func linesToIPList(lines []string) ([]string, error) {
 					}
 				}
 			}
+		} else if ip, err := net.LookupIP(line); err == nil {
+			ipList = append(ipList, ip[0].String())
 		} else {
 			return ipList, fmt.Errorf("%s is not an IP Address or CIDR Network", line)
-			ips, err := net.LookupIP(line)
-			if err != nil {
-				return ipList, fmt.Errorf("%s is not a valid hostname", line)
-			}
-			ipList = append(ipList, ips[0].String())
 		}
 	}
 	return ipList, nil
