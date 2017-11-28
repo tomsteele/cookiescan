@@ -3,17 +3,17 @@ cookiescan
 
 TCP port scanning through SYN flood protected networks
 
-##Download##
+## Download
 Binary packages for Linux and OS X are available [here](http://github.com/tomsteele/cookiescan/releases/latest). If you need to build for another operating system see the go documentation or get in contact with me and I'll see what I can do.
 
-##Install##
+## Install
 After installing libpcap-dev:
 ```
 $ unzip cookiescan*.zip
 $ ./cookiescan
 ```
 
-##Usage##
+## Usage
 ```
 $ cookiescan -h
 
